@@ -11,7 +11,7 @@ definePageMeta({ layout: 'blank' })
 
 // Mockup Data dari Database
 const eventData = ref({
-  templateId: 1,
+  templateId: 2,
   title: 'ROMEO & JULIET',
   date: '12 DEC 2026',
   time: '19:00 WIB',

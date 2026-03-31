@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute inset-0 w-full h-full font-sans selection:bg-black selection:text-white bg-black overflow-hidden">
+  <div class="absolute inset-0 w-full h-full font-sans selection:bg-amber-100 selection:text-amber-900 bg-slate-50 text-slate-800 overflow-hidden">
 
     <iframe 
       v-if="isOpened && youtubeId" 
@@ -9,221 +9,223 @@
     </iframe>
 
     <div 
-      class="absolute inset-0 z-50 flex flex-col items-center justify-center p-6 text-center border-b-8 border-black bg-emerald-800 text-white transition-transform duration-[1500ms] ease-in-out"
-      :class="isOpened ? '-translate-y-full' : 'translate-y-0'"
+      class="absolute inset-0 z-50 flex flex-col items-center justify-center p-6 text-center transition-all duration-[1500ms] ease-in-out overflow-hidden bg-slate-50"
+      :class="isOpened ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'"
     >
-      <div class="animate-[spin_8s_linear_infinite] text-6xl mb-8 flex gap-2">🌿🌸🌿</div>
-      <p class="text-xs font-black tracking-[0.5em] uppercase mb-4 border-2 border-yellow-400 text-yellow-400 px-4 py-1">WILUJENG SUMPING</p>
-      <h1 class="text-5xl font-black uppercase italic tracking-tighter mb-12 drop-shadow-[6px_6px_0px_rgba(0,0,0,1)] text-yellow-400">{{ data.title }}</h1>
+      <img :src="data.image || 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=400'" class="absolute inset-0 w-full h-full object-cover z-0" />
       
-      <button 
-        @click="openInvitation" 
-        class="bg-yellow-500 text-black border-4 border-black px-10 py-4 text-sm font-black uppercase tracking-widest shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:bg-yellow-400 active:translate-x-[6px] active:translate-y-[6px] active:shadow-none transition-all cursor-pointer"
-      >
-        BUKA UNDANGAN
-      </button>
+      <div class="absolute inset-0 bg-white/60 backdrop-blur-sm z-0"></div>
+
+      <div class="relative z-10 flex flex-col items-center w-full max-w-sm">
+        <Icon name="ph:plant-light" class="text-6xl text-stone-500 mb-6 animate-pulse-slow drop-shadow-sm" />
+        
+        <p class="text-[10px] tracking-[0.3em] uppercase mb-4 text-stone-600 font-bold drop-shadow-sm">The Wedding Of</p>
+        <h1 class="text-4xl md:text-5xl font-serif italic mb-10 text-slate-800 drop-shadow-md">{{ data.title }}</h1>
+        
+        <p class="text-xs font-medium text-slate-600 mb-6 drop-shadow-sm">Kepada Yth.<br/>Bapak/Ibu/Saudara/i</p>
+        <h2 class="text-xl font-serif mb-10 text-amber-800 drop-shadow-sm">{{ data.gate?.guestName || 'Tamu Undangan' }}</h2>
+
+        <button 
+          @click="openInvitation" 
+          class="bg-slate-800 text-white px-8 py-3 text-xs font-light tracking-widest uppercase hover:bg-amber-700 transition-all duration-500 rounded-full shadow-[0_8px_20px_rgba(0,0,0,0.15)] flex items-center gap-2"
+        >
+          <Icon name="mdi:email-open-outline" class="text-base" /> Buka Undangan
+        </button>
+      </div>
     </div>
 
-    <div ref="scrollContainer" @scroll="handleScroll" class="absolute inset-0 w-full h-full overflow-y-auto snap-y snap-mandatory no-scrollbar z-10">
+    <div ref="scrollContainer" @scroll="handleScroll" class="absolute inset-0 w-full h-full overflow-y-auto snap-y snap-mandatory no-scrollbar z-10 scroll-smooth">
 
-      <section id="slide-cover" class="section-card bg-amber-700 overflow-hidden group">
-        
-        <div class="absolute top-12 left-0 w-[120%] bg-black text-yellow-400 font-black py-2 whitespace-nowrap border-y-4 border-black -rotate-3 z-0">
-          <div class="animate-marquee inline-block text-xl uppercase tracking-widest">
-            SAMPURASUN ❋ PAHEUT JANGJI PASINI ❋ SAMPURASUN ❋ PAHEUT JANGJI PASINI ❋ 
-          </div>
-        </div>
-
-        <div class="absolute bottom-16 right-8 text-5xl animate-[spin_5s_linear_infinite] z-0 opacity-80">🌸</div>
-        <div class="absolute top-1/4 left-6 text-4xl animate-[spin_7s_linear_infinite] z-0 text-yellow-400 drop-shadow-[3px_3px_0px_rgba(0,0,0,1)] opacity-80">🌾</div>
-
-        <div class="relative z-10 w-[65%] aspect-[3/4] mb-[-40px] border-4 border-black bg-yellow-50 p-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-3 group-hover:-rotate-2 transition-transform duration-500">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-emerald-700 border-2 border-black rotate-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] z-20"></div>
-          <img :src="data.image || 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=400'" class="w-full h-full object-cover sepia-[.5] grayscale-[.5] group-hover:sepia-0 group-hover:grayscale-0 transition-all duration-500" />
-        </div>
-
-        <div class="relative z-20 flex flex-col items-center border-4 border-black bg-yellow-50 p-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] -rotate-2 group-hover:rotate-1 hover:-translate-y-2 hover:shadow-[14px_14px_0px_0px_rgba(0,0,0,1)] transition-all duration-500 w-[85%]">
-          <p class="text-[10px] font-black tracking-[0.5em] uppercase mb-4 text-emerald-800">PANGANTEN ANYAR</p>
-          <h1 class="text-5xl font-black uppercase italic tracking-tighter text-center leading-none text-black">{{ data.title }}</h1>
-        </div>
-
-      </section>
-
-      <section id="slide-quote" class="section-card flex-col overflow-hidden group relative p-0 border-b-8 border-black pattern-anyaman">
-        
-        <div class="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-          <div class="absolute top-20 left-10 text-4xl text-black animate-float-slow [animation-delay:1s] shadow-solid-xs border-2 border-black p-1 bg-white">🌿</div>
-          <div class="absolute top-40 right-10 text-5xl animate-float shadow-solid-xs">🕊️</div>
-          <div class="absolute bottom-20 left-16 text-5xl animate-float-fast [animation-delay:2s]">🌸</div>
-          <div class="absolute bottom-10 right-16 text-4xl animate-spin-slow">🌾</div>
-        </div>
-
-        <div class="w-full bg-emerald-900 text-yellow-400 font-black py-2 whitespace-nowrap overflow-hidden border-b-4 border-black border-t-4 rotate-1 scale-105 mb-10 relative z-20 group-hover:-rotate-1 group-hover:bg-yellow-400 group-hover:text-emerald-900 transition-all duration-500">
-          <div class="animate-marquee inline-block text-2xl uppercase tracking-widest">
-            SILIH ASIH ❋ SILIH ASAH ❋ SILIH ASUH ❋ SILIH ASIH ❋ 
-          </div>
-        </div>
-        
-        <div class="px-8 text-center relative z-20 animate-float-slow transition-transform duration-500 group-hover:scale-105">
-          <p class="text-3xl font-black uppercase italic tracking-tighter leading-tight drop-shadow-[4px_4px_0px_rgba(255,255,255,1)] text-black bg-yellow-50/80 p-4 border-4 border-black">
-            "{{ data.quote?.text || 'Mugia runtut raut sauyunan, cacap nepi ka pakarangan.' }}"
-          </p>
-          <p class="mt-8 text-xs font-black tracking-widest bg-black text-yellow-400 inline-block px-4 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:bg-emerald-800 group-hover:text-white transition-all">
-            — {{ data.quote?.source || 'Papatah Sunda' }}
-          </p>
-        </div>
-
-        <div class="w-full bg-yellow-50 text-black font-black py-1 whitespace-nowrap overflow-hidden border-t-4 border-b-4 border-black -rotate-1 scale-105 mt-10 relative z-20 group-hover:rotate-1 group-hover:bg-black group-hover:text-yellow-50 transition-all duration-500">
-          <div class="animate-marquee-reverse inline-block text-sm uppercase tracking-widest">
-            HADE KU GORENG KU ❋ RUNTUT RAUT SAUYUNAN ❋ 
-          </div>
-        </div>
-
-      </section>
-
-      <section class="section-card bg-yellow-50 grid grid-rows-2 p-0 border-none relative overflow-hidden">
-        
-        <div class="relative border-b-8 border-black bg-emerald-700 flex flex-col items-center justify-center p-6 group hover:bg-emerald-600 transition-colors w-full h-full text-center">
-          <div class="w-24 h-24 mb-4 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden bg-white rotate-2 group-hover:-rotate-2 transition-transform duration-300 z-10">
-            <img :src="data.mempelai.priaImage || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400'" class="w-full h-full object-cover sepia-[.5] grayscale group-hover:sepia-0 group-hover:grayscale-0 transition-all duration-500" />
-          </div>
-          <div class="bg-yellow-50 border-4 border-black px-6 py-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] -rotate-1 group-hover:rotate-1 transition-transform duration-300 z-10">
-            <p class="text-[10px] font-black tracking-[0.3em] uppercase mb-1 text-emerald-800">PANGANTEN PAMEGET</p>
-            <h2 class="text-3xl font-black uppercase italic tracking-tighter text-black">{{ data.mempelai.pria }}</h2>
-          </div>
-          <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_center,_black_2px,_transparent_2px)] [background-size:16px_16px]"></div>
-        </div>
-
-        <div class="relative border-b-8 border-black bg-amber-600 flex flex-col items-center justify-center p-6 group hover:bg-amber-500 transition-colors w-full h-full text-center">
-          <div class="w-24 h-24 mb-4 border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] overflow-hidden bg-white -rotate-2 group-hover:rotate-2 transition-transform duration-300 z-10">
-            <img :src="data.mempelai.wanitaImage || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400'" class="w-full h-full object-cover sepia-[.5] grayscale group-hover:sepia-0 group-hover:grayscale-0 transition-all duration-500" />
-          </div>
-          <div class="bg-yellow-50 border-4 border-black px-6 py-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rotate-1 group-hover:-rotate-1 transition-transform duration-300 z-10">
-            <p class="text-[10px] font-black tracking-[0.3em] uppercase mb-1 text-amber-800">PANGANTEN ISTRI</p>
-            <h2 class="text-3xl font-black uppercase italic tracking-tighter text-black">{{ data.mempelai.wanita }}</h2>
-          </div>
-          <div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_center,_black_2px,_transparent_2px)] [background-size:16px_16px]"></div>
-        </div>
-
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-yellow-400 border-4 border-black text-sm px-4 py-3 font-black flex items-center justify-center rounded-full shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] animate-bounce-slow z-20">
-          SARENG
-        </div>
-
-      </section>
-
-      <section class="section-card bg-orange-800 text-yellow-50">
-        <div class="border-4 border-black bg-yellow-50 text-black p-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] w-[85%] text-center relative overflow-hidden group hover:scale-105 transition-transform duration-500">
-          <Icon name="material-symbols:filter-vintage-outline" class="absolute -top-4 -right-4 text-emerald-700/20 text-7xl rotate-45 group-hover:rotate-90 transition-all duration-700" />
-          <Icon name="material-symbols:filter-vintage-outline" class="absolute -bottom-4 -left-4 text-amber-700/20 text-7xl rotate-45 group-hover:rotate-12 transition-all duration-700" />
+      <section id="slide-cover" class="section-card bg-slate-50 relative">
+        <div class="w-[85%] max-w-sm flex flex-col items-center animate-fade-up">
+          <p class="text-[10px] tracking-[0.3em] uppercase mb-6 text-stone-500">The Wedding Of</p>
           
-          <h2 class="text-2xl font-black uppercase tracking-tighter italic mb-8 bg-black text-yellow-400 py-2 inline-block px-4 -rotate-2 relative z-10">TITIMANGSA</h2>
-          <p class="text-4xl font-black mb-2 relative z-10">{{ data.date }}</p>
-          <p class="text-lg font-bold tracking-widest mb-6 text-orange-700 relative z-10">{{ data.time }}</p>
-          <p class="text-[10px] font-black tracking-widest leading-relaxed uppercase border-t-4 border-black pt-6 relative z-10">{{ data.location }}</p>
+          <div class="w-full aspect-[3/4] rounded-t-full rounded-b-md overflow-hidden p-1.5 border border-stone-200 bg-white shadow-sm mb-8">
+            <img :src="data.image || 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=400'" class="w-full h-full object-cover rounded-t-full rounded-b-sm" />
+          </div>
+
+          <h1 class="text-4xl font-serif italic text-slate-800 mb-4">{{ data.title }}</h1>
+          <p class="text-xs tracking-widest uppercase text-amber-700 font-medium">{{ data.date }}</p>
         </div>
       </section>
 
-      <section class="section-card bg-emerald-800">
-        <h2 class="text-4xl font-black uppercase tracking-tighter italic mb-8 text-yellow-400 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]">PETA LOKASI.</h2>
-        <div class="w-[85%] aspect-square bg-gray-200 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] mb-8 overflow-hidden relative group">
-          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=400" class="w-full h-full object-cover sepia-[.5] group-hover:sepia-0 transition-all duration-500" />
-          <div class="absolute inset-0 border-4 border-dashed border-black m-3 pointer-events-none"></div>
+      <section id="slide-quote" class="section-card flex-col items-center justify-center p-8 relative text-center bg-white overflow-hidden">
+        
+        <img :src="data.image || 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=400'" class="absolute inset-0 w-full h-full object-cover grayscale opacity-10 z-0" />
+
+        <div class="relative z-10 flex flex-col items-center max-w-xs animate-fade-up">
+          <Icon name="ph:quotes-thin" class="text-5xl text-amber-700/50 mb-6" /> 
+          
+          <p class="text-sm leading-loose text-slate-700 font-light mb-8 drop-shadow-sm">
+            "{{ data.quote?.text || 'Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya...' }}"
+          </p>
+          <div class="w-12 h-[1px] bg-amber-700/30 mx-auto mb-4"></div>
+          <p class="text-[10px] font-bold tracking-widest text-slate-800 uppercase drop-shadow-sm">
+            {{ data.quote?.source || '(QS. Ar-Rum: 21)' }}
+          </p>
         </div>
-        <a :href="data.mapUrl" target="_blank" class="bg-yellow-400 text-black border-4 border-black px-6 py-3 text-[10px] font-black uppercase tracking-widest shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:bg-black hover:text-yellow-400 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all text-center">
-          BUKA GOOGLE MAPS
+      </section>
+
+      <section class="section-card bg-slate-50 py-12 px-6 overflow-y-auto">
+        <div class="w-full max-w-sm flex flex-col items-center animate-fade-up pb-10">
+          <Icon name="ph:flower-tulip-light" class="text-3xl text-stone-400 mb-4" />
+          <h2 class="text-sm tracking-[0.3em] uppercase text-slate-500 mb-10 text-center">Pasangan Mempelai</h2>
+
+          <div class="flex flex-col items-center text-center mb-10">
+            <div class="w-32 h-40 rounded-t-full overflow-hidden mb-4 shadow-md bg-white p-1 border border-stone-200">
+              <img :src="data.mempelai.priaImage || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400'" class="w-full h-full object-cover rounded-t-full" />
+            </div>
+            <h3 class="text-3xl font-serif italic text-slate-800 mb-2">{{ data.mempelai.pria }}</h3>
+            <p class="text-xs text-slate-500 font-light">Putra dari Bapak ... & Ibu ...</p>
+            <a href="#" class="mt-3 text-xs text-amber-700 flex items-center gap-1 hover:text-amber-600"><Icon name="mdi:instagram" /> @instagram_pria</a>
+          </div>
+
+          <div class="text-3xl font-serif italic text-stone-300 mb-10">&</div>
+
+          <div class="flex flex-col items-center text-center mb-8">
+            <div class="w-32 h-40 rounded-t-full overflow-hidden mb-4 shadow-md bg-white p-1 border border-stone-200">
+              <img :src="data.mempelai.wanitaImage || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400'" class="w-full h-full object-cover rounded-t-full" />
+            </div>
+            <h3 class="text-3xl font-serif italic text-slate-800 mb-2">{{ data.mempelai.wanita }}</h3>
+            <p class="text-xs text-slate-500 font-light">Putri dari Bapak ... & Ibu ...</p>
+            <a href="#" class="mt-3 text-xs text-amber-700 flex items-center gap-1 hover:text-amber-600"><Icon name="mdi:instagram" /> @instagram_wanita</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card bg-white flex flex-col items-center justify-center p-6">
+        <h2 class="text-sm tracking-[0.3em] uppercase text-slate-500 mb-8 border-b border-stone-200 pb-4">Rangkaian Acara</h2>
+        
+        <div class="w-full max-w-sm flex flex-col gap-6 animate-fade-up">
+          
+          <div class="bg-slate-50 rounded-2xl p-6 border border-stone-100 shadow-sm text-center relative overflow-hidden">
+            <Icon name="ph:rings-light" class="text-4xl text-amber-600 mb-3 mx-auto" />
+            <h3 class="text-2xl font-serif italic text-slate-800 mb-2">Akad Nikah</h3>
+            <p class="text-sm font-medium text-slate-600 mb-1">{{ data.date }}</p>
+            <p class="text-xs text-slate-500 mb-4">Pukul: 08.00 WIB - Selesai</p>
+            <p class="text-xs text-slate-600 font-light">{{ data.location }}</p>
+          </div>
+
+          <div class="bg-slate-50 rounded-2xl p-6 border border-stone-100 shadow-sm text-center relative overflow-hidden">
+            <Icon name="ph:glass-cheers-light" class="text-4xl text-amber-600 mb-3 mx-auto" />
+            <h3 class="text-2xl font-serif italic text-slate-800 mb-2">Resepsi</h3>
+            <p class="text-sm font-medium text-slate-600 mb-1">{{ data.date }}</p>
+            <p class="text-xs text-slate-500 mb-4">Pukul: {{ data.time }} - Selesai</p>
+            <p class="text-xs text-slate-600 font-light">{{ data.location }}</p>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="section-card bg-slate-50 flex flex-col items-center p-6 justify-center">
+        <h2 class="text-sm tracking-[0.3em] uppercase text-slate-500 mb-8">Peta Lokasi</h2>
+        
+        <div class="w-full max-w-sm bg-white p-2 rounded-2xl shadow-sm border border-stone-200 mb-8 animate-fade-up">
+          <div class="w-full aspect-square bg-stone-100 rounded-xl overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=400" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" />
+          </div>
+        </div>
+        
+        <a :href="data.mapUrl" target="_blank" class="bg-amber-700 text-white px-8 py-3 text-xs tracking-widest uppercase hover:bg-slate-800 transition-all duration-500 rounded-full shadow-md flex items-center gap-2">
+          <Icon name="mdi:map-marker-outline" class="text-base" /> Lihat Lokasi
         </a>
       </section>
 
-      <section id="slide-gallery" class="section-card bg-stone-900 relative p-0 overflow-hidden border-b-8 border-black">
+      <section class="section-card bg-white p-6 flex flex-col items-center justify-start overflow-y-auto">
+        <h2 class="text-sm tracking-[0.3em] uppercase text-slate-500 mb-10 mt-10">Love Story</h2>
         
-        <div class="absolute inset-0 z-0 pointer-events-none opacity-30">
-          <Icon name="material-symbols:filter-vintage-outline" class="text-yellow-600 text-6xl absolute top-10 left-10 animate-spin-slow" />
-          <Icon name="material-symbols:filter-vintage-outline" class="text-emerald-600 text-4xl absolute bottom-16 right-16 animate-spin-slow delay-1000" />
-        </div>
-
-        <div class="relative z-10 w-full px-6 flex flex-col items-center">
-          <div class="flex items-center gap-3 mb-10 mt-6 relative">
-            <Icon name="material-symbols:local-florist" class="text-yellow-400 text-5xl animate-float-complex" />
-            <h2 class="text-4xl font-black uppercase tracking-tighter italic text-yellow-50 text-center leading-none">GALERI.</h2>
-          </div>
-
-          <div class="w-full grid grid-cols-2 md:grid-cols-3 md:grid-rows-[repeat(6,minmax(0,1fr))] gap-4 mb-8">
-            <div class="border-2 border-yellow-400 overflow-hidden relative group md:col-span-2 md:row-span-3 -rotate-1 group-hover:rotate-1 transition-transform">
-              <img :src="data.gallery[0]" class="w-full h-full object-cover sepia-[.3] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500" />
-              <div class="absolute bottom-3 left-3 bg-yellow-400 text-black font-black uppercase tracking-tight p-2 text-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-2">MOMEN WAAS</div>
-            </div>
-            <div class="border-2 border-yellow-400 overflow-hidden relative group aspect-square rotate-2 group-hover:-rotate-2 transition-transform">
-              <img :src="data.gallery[1]" class="w-full h-full object-cover sepia-[.3] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500" />
-            </div>
-            <div class="border-2 border-yellow-400 overflow-hidden relative group aspect-square -rotate-1 group-hover:rotate-1 transition-transform">
-              <img :src="data.gallery[2]" class="w-full h-full object-cover sepia-[.3] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500" />
-            </div>
-            <div class="border-2 border-yellow-400 overflow-hidden relative group md:col-start-3 md:row-start-2 md:row-span-3 aspect-[3/4] rotate-1 group-hover:-rotate-1 transition-transform">
-              <img :src="data.gallery[3]" class="w-full h-full object-cover sepia-[.3] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500" />
-            </div>
-            <div class="border-2 border-yellow-400 overflow-hidden relative group aspect-square rotate-2 group-hover:-rotate-2 transition-transform">
-              <img :src="data.gallery[4]" class="w-full h-full object-cover sepia-[.3] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500" />
-            </div>
-            <div class="border-2 border-yellow-400 overflow-hidden relative group aspect-square -rotate-2 group-hover:rotate-2 transition-transform">
-              <img :src="data.gallery[5]" class="w-full h-full object-cover sepia-[.3] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500" />
-            </div>
-            <div class="border-2 border-yellow-400 overflow-hidden relative group md:col-span-2 md:row-span-3 rotate-1 group-hover:-rotate-1 transition-transform">
-              <img :src="data.gallery[6]" class="w-full h-full object-cover sepia-[.3] group-hover:sepia-0 group-hover:scale-105 transition-all duration-500" />
-              <div class="absolute bottom-3 right-3 bg-yellow-400 text-black font-black uppercase tracking-tight p-2 text-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -rotate-1">SAUYUNAN</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section-card bg-amber-600">
-        <div class="bg-yellow-50 border-4 border-black p-6 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] w-[85%] relative">
-          <div class="absolute -top-5 -left-5 text-4xl rotate-[-45deg] drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">🌾</div>
-
-          <h2 class="text-3xl font-black uppercase tracking-tighter italic mb-4">WARTA SUMPING.</h2>
-          <p class="text-[10px] font-black tracking-widest uppercase mb-6 bg-yellow-400 p-2 border-2 border-black inline-block">Wates: {{ data.rsvp.deadline }}</p>
-          <div class="flex flex-col gap-3">
-            <input type="text" placeholder="Wasta (Nama)" class="border-4 border-black p-3 text-sm font-bold uppercase focus:bg-yellow-400 outline-none transition-colors w-full">
-            <select class="border-4 border-black p-3 text-sm font-bold uppercase focus:bg-yellow-400 outline-none appearance-none cursor-pointer w-full">
-              <option>BADE DONGKAP</option>
-              <option>MOAL DONGKAP</option>
-            </select>
-            <button class="bg-black text-yellow-400 p-3 text-sm font-black tracking-widest uppercase hover:bg-emerald-800 hover:text-white border-4 border-black transition-colors mt-2 w-full">KONFIRMASI</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section-card bg-[#dcb37b] pattern-anyaman text-black">
-        <div class="w-[85%] flex flex-col items-center">
-          <h2 class="text-3xl font-black uppercase tracking-tighter italic mb-6 bg-emerald-800 text-yellow-400 px-4 py-2 rotate-2 border-4 border-black">PIDU'A.</h2>
-          <textarea placeholder="Serat pidu'a di dieu..." rows="3" class="w-full text-sm border-4 border-black p-3 font-bold uppercase bg-yellow-50 focus:bg-yellow-200 outline-none resize-none mb-3 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"></textarea>
-          <button class="w-full bg-black text-yellow-400 p-3 text-sm font-black tracking-widest uppercase hover:bg-emerald-800 border-4 border-black transition-colors mb-6 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:shadow-none">KINTUN PIDU'A</button>
+        <div class="w-full max-w-sm relative border-l border-stone-200 ml-4 pb-10 animate-fade-up">
           
-          <div class="w-full border-4 border-black p-3 bg-yellow-50 text-left transform -rotate-1">
-            <p class="text-xs font-black uppercase tracking-tight mb-2 flex items-center gap-2 text-emerald-800">
-              <span class="w-2 h-2 bg-amber-600 rounded-full inline-block border border-black"></span> KULAWARGA
-            </p>
-            <p class="text-xs font-bold text-gray-800 uppercase">{{ data.ucapan.mockMessage || 'MUGIA SAMANAWA, RUNTUT RAUT SAUYUNAN.' }}</p>
+          <div class="mb-8 pl-6 relative">
+            <div class="absolute -left-[5px] top-1 w-2.5 h-2.5 bg-amber-600 rounded-full"></div>
+            <p class="text-xs font-bold text-amber-700 mb-1">Desember 2022</p>
+            <h3 class="text-lg font-serif italic text-slate-800 mb-2">Awal Bertemu</h3>
+            <p class="text-xs text-slate-500 font-light leading-relaxed">Kita bertemu di tahun 2022. Awalnya hanya sebatas teman biasa, namun seiring berjalannya waktu, rasa nyaman itu mulai tumbuh.</p>
+          </div>
+
+          <div class="mb-8 pl-6 relative">
+            <div class="absolute -left-[5px] top-1 w-2.5 h-2.5 bg-amber-600 rounded-full"></div>
+            <p class="text-xs font-bold text-amber-700 mb-1">Januari 2023</p>
+            <h3 class="text-lg font-serif italic text-slate-800 mb-2">Berkomitmen</h3>
+            <p class="text-xs text-slate-500 font-light leading-relaxed">Kami memutuskan untuk menjalin hubungan yang lebih serius dan saling mengenal keluarga satu sama lain.</p>
+          </div>
+
+          <div class="pl-6 relative">
+            <div class="absolute -left-[5px] top-1 w-2.5 h-2.5 bg-amber-600 rounded-full"></div>
+            <p class="text-xs font-bold text-amber-700 mb-1">Desember 2025</p>
+            <h3 class="text-lg font-serif italic text-slate-800 mb-2">Menikah</h3>
+            <p class="text-xs text-slate-500 font-light leading-relaxed">Dan kami bersyukur, dipertemukan Allah di waktu terbaik. Kini kami menanti hari istimewa kami.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="slide-gallery" class="section-card bg-slate-50 p-6 flex flex-col items-center">
+        <h2 class="text-sm tracking-[0.3em] uppercase text-slate-500 mb-8">Momen Kami</h2>
+
+        <div class="w-full max-w-sm grid grid-cols-2 gap-3 animate-fade-up">
+          <div v-for="(img, idx) in data.gallery?.slice(0, 4)" :key="idx" class="overflow-hidden rounded-xl bg-white p-1 border border-stone-200 shadow-sm aspect-[4/5]">
+            <img :src="img" class="w-full h-full object-cover rounded-lg hover:scale-105 transition-transform duration-700" />
           </div>
         </div>
       </section>
 
-      <section class="section-card bg-emerald-900 text-yellow-400 border-none overflow-hidden relative">
-        <div class="absolute inset-0 z-0 pointer-events-none opacity-20 bg-[radial-gradient(circle_at_center,_#facc15_2px,_transparent_2px)] [background-size:24px_24px]"></div>
+      <section class="section-card bg-white p-6 flex flex-col items-center justify-center">
+        <Icon name="ph:gift-light" class="text-4xl text-amber-600 mb-4" />
+        <h2 class="text-sm tracking-[0.3em] uppercase text-slate-500 mb-4">Wedding Gift</h2>
+        <p class="text-xs text-slate-500 font-light text-center mb-8 max-w-xs leading-relaxed">Bagi keluarga dan sahabat yang ingin mengirimkan hadiah, silakan mengirimkannya melalui tautan di bawah ini:</p>
+
+        <div class="w-full max-w-sm p-6 rounded-2xl bg-gradient-to-br from-slate-100 to-white shadow-md border border-stone-200 relative overflow-hidden animate-fade-up mb-4">
+          <Icon name="mdi: integrated-circuit" class="text-4xl text-amber-400 mb-4 opacity-80" />
+          <p class="text-lg tracking-[0.2em] font-mono text-slate-700 mb-1">5101 5001 7177</p>
+          <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Bank BTN - Widi Sukmawati</p>
+          <button class="absolute top-6 right-6 text-slate-400 hover:text-amber-600 transition-colors flex flex-col items-center">
+            <Icon name="mdi:content-copy" class="text-xl" />
+            <span class="text-[8px] uppercase mt-1">Copy</span>
+          </button>
+        </div>
+
+        <div class="w-full max-w-sm p-6 rounded-2xl bg-gradient-to-br from-slate-100 to-white shadow-md border border-stone-200 relative overflow-hidden animate-fade-up">
+          <Icon name="mdi: integrated-circuit" class="text-4xl text-amber-400 mb-4 opacity-80" />
+          <p class="text-lg tracking-[0.2em] font-mono text-slate-700 mb-1">5140 8360 11</p>
+          <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">BCA - Syidik Permadi</p>
+          <button class="absolute top-6 right-6 text-slate-400 hover:text-amber-600 transition-colors flex flex-col items-center">
+            <Icon name="mdi:content-copy" class="text-xl" />
+            <span class="text-[8px] uppercase mt-1">Copy</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="section-card bg-slate-50 flex flex-col items-center p-6 overflow-y-auto">
+        <h2 class="text-sm tracking-[0.3em] uppercase text-slate-500 mt-10 mb-8 border-b border-stone-200 pb-4">RSVP & Ucapan</h2>
         
-        <h2 class="text-5xl font-black uppercase tracking-tighter italic mb-10 text-center drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] relative z-10">HATUR NUHUN.</h2>
-        <div class="animate-[spin_8s_linear_infinite] text-6xl mb-10 text-yellow-400 relative z-10">🌸</div>
-        <p class="text-[10px] font-black tracking-[0.5em] uppercase text-emerald-900 bg-yellow-400 px-4 py-2 border-4 border-black text-center w-[85%] mx-auto relative z-10">{{ data.title }}</p>
+        <div class="w-full max-w-sm flex flex-col bg-white p-6 rounded-2xl shadow-sm border border-stone-100 animate-fade-up mb-10">
+          <input type="text" placeholder="Nama Lengkap" class="bg-slate-50 border border-stone-200 rounded-lg p-3 text-sm text-slate-700 placeholder-slate-400 focus:border-amber-500 outline-none mb-4 w-full">
+          
+          <select class="bg-slate-50 border border-stone-200 rounded-lg p-3 text-sm text-slate-700 focus:border-amber-500 outline-none appearance-none cursor-pointer mb-4 w-full">
+            <option>Hadir</option>
+            <option>Tidak Hadir</option>
+          </select>
+
+          <textarea placeholder="Berikan ucapan dan do'a..." rows="3" class="w-full text-sm border border-stone-200 rounded-lg p-3 bg-slate-50 text-slate-700 placeholder-slate-400 focus:border-amber-500 outline-none resize-none mb-6"></textarea>
+          
+          <button class="w-full bg-slate-800 text-white py-3 text-xs font-bold tracking-widest uppercase hover:bg-amber-700 transition-colors rounded-full shadow-md">Kirim Ucapan</button>
+        </div>
+      </section>
+
+      <section class="section-card bg-white border-none relative flex flex-col items-center justify-center p-6 text-center">
+        <Icon name="ph:flower-light" class="text-5xl text-stone-300 mb-6 animate-pulse-slow" />
+        <p class="text-xs font-light text-slate-500 mb-4 leading-relaxed max-w-xs">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
+        <p class="text-[10px] tracking-[0.3em] uppercase text-amber-700 mb-8">Terima Kasih</p>
+        
+        <h1 class="text-4xl font-serif italic text-slate-800">{{ data.title }}</h1>
       </section>
 
     </div>
 
     <div v-if="!isEditor && isOpened" class="absolute bottom-6 right-6 z-40 flex flex-col gap-3">
-      <button v-if="!isAtTop" @click="scrollUp" class="w-10 h-10 bg-yellow-50 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center hover:bg-yellow-400 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer">
-        <span class="text-xl font-black">↑</span>
-      </button>
-
-      <button v-if="!isAtBottom" @click="scrollDown" class="w-10 h-10 bg-yellow-50 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center hover:bg-yellow-400 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer">
-        <span class="text-xl font-black">↓</span>
+      <button v-if="!isAtBottom" @click="scrollDown" class="w-10 h-10 bg-white/80 border border-stone-200 text-slate-500 rounded-full flex items-center justify-center hover:bg-slate-800 hover:text-white backdrop-blur-sm transition-all cursor-pointer shadow-sm">
+        <Icon name="mdi:chevron-down" class="text-2xl" />
       </button>
     </div>
 
@@ -269,7 +271,6 @@ const scrollDown = () => {
 }
 
 const youtubeId = computed(() => {
-  // Disarankan mengganti default video dengan musik kecapi suling / degung sunda
   const url = props.data.youtubeUrl || 'https://www.youtube.com/watch?v=h2MXXx2Z1E4'
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
@@ -278,8 +279,7 @@ const youtubeId = computed(() => {
 </script>
 
 <style scoped>
-* { border-radius: 0 !important; }
-
+/* Kontainer Utama per Slide */
 .section-card {
   height: 100%;
   width: 100%;
@@ -291,10 +291,10 @@ const youtubeId = computed(() => {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  border-bottom: 8px solid black;
   flex-shrink: 0; 
 }
 
+/* Sembunyikan Scrollbar */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -303,62 +303,18 @@ const youtubeId = computed(() => {
   scrollbar-width: none;  
 }
 
-/* MARQUEE ANIMATIONS */
-@keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
-}
-.animate-marquee {
-  display: inline-block;
-  animation: marquee 12s linear infinite;
-  white-space: nowrap;
+/* Animasi Fade & Slide Up Halus Ala Elegan */
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes marquee-reverse {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0%); }
-}
-.animate-marquee-reverse {
-  display: inline-block;
-  animation: marquee-reverse 12s linear infinite;
-  white-space: nowrap;
+.animate-fade-up {
+  animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* FLOAT & SPIN ANIMATIONS */
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(5deg); }
-}
-
-@keyframes float-complex {
-  0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
-  33% { transform: translate(5px, -10px) rotate(-3deg); }
-  66% { transform: translate(-5px, -5px) rotate(3deg); }
-}
-
-.animate-float { animation: float 4s ease-in-out infinite; }
-.animate-float-slow { animation: float-complex 6s ease-in-out infinite; }
-.animate-float-fast { animation: float 3s ease-in-out infinite; }
-.animate-spin-slow { animation: spin 10s linear infinite; }
-
-/* SHADOW UTILITY */
-.shadow-solid-xs {
-  box-shadow: 3px 3px 0px 0px rgba(0,0,0,1);
-}
-
-/* POLA ANYAMAN BAMBU KASUNDAAN */
-.pattern-anyaman {
-  background-color: #dcb37b;
-  background-image: 
-    linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.05) 75%, rgba(0,0,0,0.05)),
-    linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.05) 75%, rgba(0,0,0,0.05));
-  background-size: 20px 20px;
-  background-position: 0 0, 10px 10px;
-  animation: pattern-move 15s linear infinite;
-}
-
-@keyframes pattern-move {
-  0% { background-position: 0 0, 10px 10px; }
-  100% { background-position: 40px 40px, 50px 50px; }
+/* Animasi Denyut Sangat Pelan untuk Ornamen */
+.animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 </style>
