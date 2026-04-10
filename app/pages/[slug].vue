@@ -6,6 +6,9 @@
 import { ref } from 'vue'
 import ThemeBrutalist from '~/components/themes/ThemeBrutalist.vue'
 import ThemeFloral from '~/components/themes/ThemeFloral.vue'
+import ThemeUrbanVibe from '~/components/themes/ThemeUrbanVibe.vue'
+import ThemeNovaSerif from '~/components/themes/ThemeNovaSerif.vue'
+import ThemeNiskala from '~/components/themes/ThemeNiskala.vue'
 
 definePageMeta({ layout: 'blank' })
 
@@ -17,7 +20,7 @@ const eventData = ref({
   time: '19:00 WIB',
   location: 'THE GRAND BALLROOM, JAKARTA INDONESIA',
   mapUrl: 'https://maps.google.com',
-  youtubeUrl: 'https://www.youtube.com/watch?v=ApXoWvfEYVU&list=RDApXoWvfEYVU&start_radio=1',
+  youtubeUrl: '',
   image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2000',
   gate: { title: 'THE WEDDING OF', openText: 'OPEN INVITATION' },
   cover: { headline: 'THE WEDDING OF' },
@@ -39,8 +42,11 @@ const eventData = ref({
 
 // Fungsi untuk memilih komponen berdasarkan ID
 const resolveTheme = (id: number) => {
-  if (id === 1 || id === 5) return ThemeBrutalist
-  if (id === 2 || id === 6) return ThemeFloral
+  if (id === 1) return ThemeBrutalist
+  if (id === 2) return ThemeFloral
+  if (id === 3) return ThemeUrbanVibe
+  if (id === 4) return ThemeNovaSerif
+  if (id === 5) return ThemeNiskala
   return ThemeBrutalist 
 }
 </script>

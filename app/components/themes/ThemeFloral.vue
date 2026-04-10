@@ -3,7 +3,7 @@
 
     <iframe 
       v-if="isOpened && youtubeId" 
-      :src="`https://www.youtube.com/embed/${youtubeId}?autoplay=1&loop=1&playlist=${youtubeId}&controls=0`" 
+      :src="`https://www.youtube.com/embed/${youtubeId}?autoplay=${isPlaying ? 1 : 0}&loop=1&playlist=${youtubeId}&controls=0`"
       class="opacity-0 pointer-events-none absolute w-0 h-0" 
       allow="autoplay">
     </iframe>
@@ -51,7 +51,7 @@
 
       <section id="slide-quote" class="section-card flex-col items-center justify-center p-8 relative text-center bg-white overflow-hidden">
         
-        <img :src="data.image || 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=400'" class="absolute inset-0 w-full h-full object-cover grayscale opacity-10 z-0" />
+        <img :src="data.image || 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=400'" class="absolute inset-0 w-full h-full object-cover grayscale opacity-30 z-0" />
 
         <div class="relative z-10 flex flex-col items-center max-w-xs animate-fade-up">
           <Icon name="ph:quotes-thin" class="text-5xl text-amber-700/50 mb-6" /> 
@@ -223,11 +223,46 @@
 
     </div>
 
-    <div v-if="!isEditor && isOpened" class="absolute bottom-6 right-6 z-40 flex flex-col gap-3">
-      <button v-if="!isAtBottom" @click="scrollDown" class="w-10 h-10 bg-white/80 border border-stone-200 text-slate-500 rounded-full flex items-center justify-center hover:bg-slate-800 hover:text-white backdrop-blur-sm transition-all cursor-pointer shadow-sm">
+    <div v-if="!isEditor && isOpened" class="absolute bottom-6 right-6 z-40 flex items-end gap-3">
+
+    <!-- 🎵 MUSIC BUTTON -->
+    <button 
+      @click="toggleMusic"
+      class="w-10 h-10 bg-white/80 border border-stone-200 text-slate-500 rounded-full flex items-center justify-center backdrop-blur-sm transition-all cursor-pointer shadow-sm hover:bg-slate-800 hover:text-white"
+    >
+      <Icon 
+        :name="isPlaying ? 'mdi:pause' : 'mdi:play'" 
+        class="text-xl"
+      />
+    </button>
+
+    <!-- ⬆⬇ SCROLL GROUP -->
+    <div class="flex flex-col gap-3">
+
+      <!-- SCROLL UP -->
+      <button 
+        @click="scrollUp"
+        :class="[
+          'w-10 h-10 bg-white/80 border border-stone-200 text-slate-500 rounded-full flex items-center justify-center backdrop-blur-sm transition-all cursor-pointer shadow-sm hover:bg-slate-800 hover:text-white',
+          isAtTop ? 'opacity-0 pointer-events-none translate-y-2' : 'opacity-100'
+        ]"
+      >
+        <Icon name="mdi:chevron-up" class="text-2xl" />
+      </button>
+
+      <!-- SCROLL DOWN -->
+      <button 
+        @click="scrollDown"
+        :class="[
+          'w-10 h-10 bg-white/80 border border-stone-200 text-slate-500 rounded-full flex items-center justify-center backdrop-blur-sm transition-all cursor-pointer shadow-sm hover:bg-slate-800 hover:text-white',
+          isAtBottom ? 'opacity-0 pointer-events-none translate-y-2' : 'opacity-100'
+        ]"
+      >
         <Icon name="mdi:chevron-down" class="text-2xl" />
       </button>
+
     </div>
+  </div>
 
   </div>
 </template>
@@ -240,10 +275,15 @@ const props = defineProps<{
   isEditor?: boolean
 }>()
 
-const isOpened = ref(false)
 const scrollContainer = ref<HTMLElement | null>(null)
+const isOpened = ref(false)
 const isAtTop = ref(true)
 const isAtBottom = ref(false)
+const isPlaying = ref(true)
+
+const toggleMusic = () => {
+  isPlaying.value = !isPlaying.value
+}
 
 const handleScroll = () => {
   if (!scrollContainer.value) return
@@ -271,7 +311,7 @@ const scrollDown = () => {
 }
 
 const youtubeId = computed(() => {
-  const url = props.data.youtubeUrl || 'https://www.youtube.com/watch?v=h2MXXx2Z1E4'
+  const url = props.data.youtubeUrl || 'https://www.youtube.com/watch?v=eulYTPXOaio&list=RDeulYTPXOaio&start_radio=1'
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
   return (match && match[2].length === 11) ? match[2] : null;

@@ -39,7 +39,7 @@
           <img 
             :src="template.image" 
             :alt="template.name"
-            class="h-full w-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+            class="h-full w-full object-cover group-hover:scale-110 transition-all duration-700"
           />
             <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6">
                 <NuxtLink 
@@ -84,45 +84,38 @@ const activeCategory = ref('ALL')
 const templates = ref([
   { 
     id: 1, 
-    name: 'CORE BLACK', 
+    name: 'BRUTALIST', 
     category: 'BRUTALIST', 
     isPopular: true,
     image: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800' 
   },
   { 
     id: 2, 
-    name: 'FLORAL ESSENCE', 
+    name: 'FLORAL', 
     category: 'FLORAL', 
     isPopular: false,
     image: 'https://images.unsplash.com/photo-1522673607200-1648832cee98?q=80&w=800' 
   },
   { 
     id: 3, 
-    name: 'PURE WHITE', 
-    category: 'MINIMALIST', 
+    name: 'NISKALA', 
+    category: 'MODERN', 
     isPopular: false,
     image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800' 
   },
   { 
     id: 4, 
-    name: 'URBAN VIBE', 
+    name: 'NOVA SERIF', 
     category: 'MODERN', 
     isPopular: true,
     image: 'https://images.unsplash.com/photo-1507504047992-06eccf49c5c9?q=80&w=800' 
   },
   { 
     id: 5, 
-    name: 'NOVA SERIF', 
-    category: 'BRUTALIST', 
+    name: 'URBAN VIBE', 
+    category: 'MINIMALIST', 
     isPopular: false,
     image: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800' 
-  },
-  { 
-    id: 6, 
-    name: 'GARDEN PARTY', 
-    category: 'FLORAL', 
-    isPopular: false,
-    image: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=800' 
   }
 ])
 

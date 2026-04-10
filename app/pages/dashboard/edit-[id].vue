@@ -22,10 +22,10 @@
       <div class="lg:col-span-5 flex flex-col gap-6">
         <div class="bg-black text-white p-4 text-[10px] font-black uppercase tracking-[0.3em] flex justify-between items-center">
           <span>Editing: {{ slides[currentSlide]?.name }}</span>
-          <span>{{ currentSlide + 1 }} / 10</span>
+          <span>{{ currentSlide + 1 }} / {{ slides.length }}</span>
         </div>
 
-        <section v-if="currentSlide === 0" class="border-2 border-black p-8 bg-white space-y-6">
+        <section v-if="currentSlide === 0" class="border-2 border-black p-8 bg-white space-y-6 animate-in">
           <h2 class="text-xl font-black uppercase tracking-tighter border-b-2 border-black pb-2">Opening Gate</h2>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-widest mb-2 text-gray-400">Subtitle</label>
@@ -42,7 +42,7 @@
           </div>
         </section>
 
-        <section v-if="currentSlide === 1" class="border-2 border-black p-8 bg-white space-y-6">
+        <section v-if="currentSlide === 1" class="border-2 border-black p-8 bg-white space-y-6 animate-in">
           <h2 class="text-xl font-black uppercase tracking-tighter border-b-2 border-black pb-2">Cover Settings</h2>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-widest mb-2 text-gray-400">Headline</label>
@@ -54,7 +54,7 @@
           </div>
         </section>
 
-        <section v-if="currentSlide === 2" class="border-2 border-black p-8 bg-white space-y-6">
+        <section v-if="currentSlide === 2" class="border-2 border-black p-8 bg-white space-y-6 animate-in">
           <h2 class="text-xl font-black uppercase tracking-tighter border-b-2 border-black pb-2">Quote / Ayat</h2>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-widest mb-2 text-gray-400">Quote Text</label>
@@ -66,7 +66,7 @@
           </div>
         </section>
 
-        <section v-if="currentSlide === 3" class="border-2 border-black p-8 bg-white space-y-6">
+        <section v-if="currentSlide === 3" class="border-2 border-black p-8 bg-white space-y-6 animate-in">
           <h2 class="text-xl font-black uppercase tracking-tighter border-b-2 border-black pb-2">The Couple</h2>
           <div class="grid grid-cols-1 gap-4">
             <input v-model="eventData.mempelai.pria" placeholder="Groom Name" type="text" class="w-full border-2 border-black p-4 text-sm font-bold focus:bg-black focus:text-white outline-none" />
@@ -74,14 +74,14 @@
           </div>
         </section>
 
-        <section v-if="currentSlide === 4" class="border-2 border-black p-8 bg-white space-y-6">
+        <section v-if="currentSlide === 4" class="border-2 border-black p-8 bg-white space-y-6 animate-in">
           <h2 class="text-xl font-black uppercase tracking-tighter border-b-2 border-black pb-2">Event Details</h2>
           <input v-model="eventData.date" type="text" placeholder="Date (e.g., 12 DEC 2026)" class="w-full border-2 border-black p-4 text-sm font-bold focus:bg-black focus:text-white outline-none" />
           <input v-model="eventData.time" type="text" placeholder="Time (e.g., 19:00 WIB)" class="w-full border-2 border-black p-4 text-sm font-bold focus:bg-black focus:text-white outline-none" />
           <textarea v-model="eventData.location" rows="3" placeholder="Venue Address" class="w-full border-2 border-black p-4 text-sm font-bold focus:bg-black focus:text-white outline-none resize-none"></textarea>
         </section>
 
-        <section v-if="currentSlide === 5" class="border-2 border-black p-8 bg-white space-y-6">
+        <section v-if="currentSlide === 5" class="border-2 border-black p-8 bg-white space-y-6 animate-in">
           <h2 class="text-xl font-black uppercase tracking-tighter border-b-2 border-black pb-2">Location Map</h2>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-widest mb-2 text-gray-400">Google Maps URL</label>
@@ -89,7 +89,7 @@
           </div>
         </section>
 
-        <section v-if="currentSlide === 6" class="border-2 border-black p-8 bg-white space-y-6">
+        <section v-if="currentSlide === 6" class="border-2 border-black p-8 bg-white space-y-6 animate-in">
           <h2 class="text-xl font-black uppercase tracking-tighter border-b-2 border-black pb-2">Gallery</h2>
           <p class="text-[10px] font-black tracking-widest uppercase text-gray-500">Upload Pre-Wedding Photos</p>
           <div class="grid grid-cols-2 gap-4">
@@ -101,7 +101,7 @@
           </div>
         </section>
 
-        <section v-if="currentSlide === 7" class="border-2 border-black p-8 bg-white space-y-6">
+        <section v-if="currentSlide === 7" class="border-2 border-black p-8 bg-white space-y-6 animate-in">
           <h2 class="text-xl font-black uppercase tracking-tighter border-b-2 border-black pb-2">RSVP Settings</h2>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-widest mb-2 text-gray-400">RSVP Deadline</label>
@@ -109,7 +109,7 @@
           </div>
         </section>
 
-        <section v-if="currentSlide === 8" class="border-2 border-black p-8 bg-white space-y-6">
+        <section v-if="currentSlide === 8" class="border-2 border-black p-8 bg-white space-y-6 animate-in">
           <h2 class="text-xl font-black uppercase tracking-tighter border-b-2 border-black pb-2">Wishes Board</h2>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-widest mb-2 text-gray-400">Mockup Message</label>
@@ -118,7 +118,7 @@
           <p class="text-[10px] text-gray-500">*In real app, this will show a list of comments from database.</p>
         </section>
 
-        <section v-if="currentSlide === 9" class="border-2 border-black p-8 bg-white space-y-6">
+        <section v-if="currentSlide === 9" class="border-2 border-black p-8 bg-white space-y-6 animate-in">
           <h2 class="text-xl font-black uppercase tracking-tighter border-b-2 border-black pb-2">Closing</h2>
           <div>
             <label class="block text-[10px] font-black uppercase tracking-widest mb-2 text-gray-400">Closing Message</label>
@@ -131,8 +131,13 @@
         <div class="sticky top-10">
           <div class="flex items-center justify-center w-full h-[80vh] min-h-[500px] py-4">
             <div class="relative h-full aspect-[9/16] border-[10px] border-black shadow-[20px_20px_0px_0px_rgba(0,0,0,0.1)] overflow-hidden bg-white">
-              <div ref="previewContainer" class="absolute inset-0 w-full h-full">
-                <component :is="resolveTheme(eventData.templateId)" :data="eventData" :isEditor="true" />
+              <div ref="previewContainer" class="absolute inset-0 w-full h-full no-scrollbar overflow-y-auto overflow-x-hidden scroll-smooth">
+                <component 
+                  :is="resolveTheme(eventData.templateId)" 
+                  :data="eventData" 
+                  :isEditor="true" 
+                  :currentSlide="currentSlide" 
+                />
               </div>
             </div>
           </div>
@@ -143,7 +148,8 @@
             </button>
             <div class="flex gap-1">
               <div v-for="(_, i) in slides" :key="i" 
-                class="h-2 transition-all duration-300"
+                class="h-2 transition-all duration-300 cursor-pointer"
+                @click="currentSlide = i"
                 :class="currentSlide === i ? 'w-6 bg-black' : 'w-2 bg-gray-300'">
               </div>
             </div>
@@ -160,13 +166,17 @@
 
 <script setup lang="ts">
 import { ref, watch, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
 import ThemeBrutalist from '~/components/themes/ThemeBrutalist.vue'
 import ThemeFloral from '~/components/themes/ThemeFloral.vue'
+import ThemeUrbanVibe from '~/components/themes/ThemeUrbanVibe.vue'
+import ThemeNovaSerif from '~/components/themes/ThemeNovaSerif.vue'
+import ThemeNiskala from '~/components/themes/ThemeNiskala.vue'
 
 definePageMeta({ layout: 'dashboard' })
 
 const previewContainer = ref<HTMLElement | null>(null)
-const currentSlide = ref(0)
+const currentSlide = ref(0) // Mulai dari 0 (Opening Gate)
 
 // 10 Array sesuai urutan yang direquest
 const slides = [
@@ -182,7 +192,6 @@ const slides = [
   { name: 'Closing' }
 ]
 
-// Data di-expand untuk mendukung 10 section
 const eventData = ref({
   templateId: Number(useRoute().params.id) || 1,
   title: 'ROMEO & JULIET',
@@ -208,8 +217,11 @@ const eventData = ref({
 })
 
 const resolveTheme = (id: number) => {
-  if (id === 1 || id === 5) return ThemeBrutalist
-  if (id === 2 || id === 6) return ThemeFloral
+  if (id === 1) return ThemeBrutalist
+  if (id === 2) return ThemeFloral
+  if (id === 3) return ThemeUrbanVibe
+  if (id === 4) return ThemeNovaSerif
+  if (id === 5) return ThemeNiskala
   return ThemeBrutalist 
 }
 
@@ -223,27 +235,39 @@ const generateSlug = (title: string) => {
 watch(currentSlide, async (newIndex) => {
   await nextTick()
   if (previewContainer.value) {
-    const sections = previewContainer.value.querySelectorAll('section')
-    if (sections[newIndex]) {
-      sections[newIndex].scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
+    // Memberikan waktu sesaat untuk animasi buka cover (jika ada di komponen child)
+    setTimeout(() => {
+      // Karena slide 0 adalah cover gate yang menutupi full layar,
+      // kita mem-bypass scroll di index 0 (supaya tetap di paling atas).
+      // Untuk slide 1 dst, kita kurangi 1 karena indeks <section> konten dimulai dari 0 setelah gate terbuka
+      if (newIndex > 0) {
+        const sections = previewContainer.value?.querySelectorAll('section')
+        const targetSection = sections?.[newIndex - 1] // Sesuaikan index dengan section
+        
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }
+    }, 150) // delay kecil untuk sinkronisasi render DOM
   }
 })
 </script>
 
 <style scoped>
 * { border-radius: 0 !important; }
-.animate-in { animation: fadeIn 0.5s ease-out; }
+.animate-in { animation: fadeIn 0.4s ease-out; }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 </style>

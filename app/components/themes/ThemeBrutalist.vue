@@ -235,17 +235,53 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 
+// 1. Tambahkan currentSlide ke dalam Props
 const props = defineProps<{ 
   data: any,
-  isEditor?: boolean
+  isEditor?: boolean,
+  currentSlide?: number // Prop yang dikirim dari Parent (Editor)
 }>()
 
 const isOpened = ref(false)
 const scrollContainer = ref<HTMLElement | null>(null)
 const isAtTop = ref(true)
 const isAtBottom = ref(false)
+
+// 2. Watcher untuk mengontrol Buka/Tutup Undangan & Auto-Scroll
+watch(() => props.currentSlide, async (newSlide) => {
+  if (newSlide !== undefined) {
+    if (newSlide > 0) {
+      // Jika di slide 1 atau lebih, buka undangan!
+      isOpened.value = true
+      
+      await nextTick()
+      
+      // Beri sedikit delay agar animasi Buka Undangan berjalan sebelum mulai scrolling
+      setTimeout(() => {
+        // Cari elemen section. Menggunakan scrollContainer jika ada, atau document jika tidak ada.
+        const sections = scrollContainer.value 
+          ? scrollContainer.value.querySelectorAll('section') 
+          : document.querySelectorAll('section')
+        
+        // newSlide - 1 karena:
+        // Slide 0 = Gate (di luar section)
+        // Slide 1 = Section 0 (Cover)
+        // Slide 2 = Section 1 (Quote), dst.
+        const targetSection = sections[newSlide - 1]
+        
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 400) // Delay 400ms (Bisa disesuaikan dengan durasi CSS transition gate)
+
+    } else {
+      // Jika kembali ke Slide 0, tutup kembali gate undangannya
+      isOpened.value = false
+    }
+  }
+}, { immediate: true })
 
 const handleScroll = () => {
   if (!scrollContainer.value) return
@@ -269,11 +305,15 @@ const scrollDown = () => {
   if (scrollContainer.value) {
     const containerHeight = scrollContainer.value.clientHeight
     scrollContainer.value.scrollBy({ top: containerHeight, behavior: 'smooth' })
+  } else {
+    // Fallback untuk template cinematic yang menggunakan window scroll
+    window.scrollBy({ top: window.innerHeight, behavior: 'smooth'})
   }
 }
 
 const youtubeId = computed(() => {
-  const url = props.data.youtubeUrl || 'https://www.youtube.com/watch?v=h2MXXx2Z1E4'
+  if (!props.data?.youtubeUrl) return null
+  const url = props.data.youtubeUrl
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
   return (match && match[2].length === 11) ? match[2] : null;
