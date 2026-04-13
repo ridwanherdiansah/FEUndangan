@@ -5,8 +5,8 @@
 </template>
 
 <style scoped>
-/* Pastikan konsistensi gaya brutalist / tanpa lengkungan terbawa ke layout ini */
-* {
-  border-radius: 0 !important;
-}
+  /* Pastikan konsistensi gaya brutalist / tanpa lengkungan terbawa ke layout ini */
+  * {
+    border-radius: 0 !important;
+  }
 </style>
